@@ -10,6 +10,7 @@ from dataclasses import dataclass
 
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
+from src.components.model_trainer import ModelTraining, ModelTrainerConfig
 
 @dataclass
 class DataIngestionConfig:
@@ -54,6 +55,10 @@ if __name__ =="__main__" :
     trian_data_path, test_data_path = obj.initiate_data_ingestion()
 
     dataTransformation = DataTransformation()
-    dataTransformation.initiate_data_transformation(trian_data_path, test_data_path)
+    trin_arr, test_arr, preprocessor_model_path = dataTransformation.initiate_data_transformation(trian_data_path, test_data_path)
+
+    modelTrain = ModelTraining()
+    r2Score = modelTrain.initiate_model_trainer(trin_arr, test_arr, preprocessor_model_path)
+    print(r2Score)
             
             
